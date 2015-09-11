@@ -36,10 +36,10 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="PW_APPID"
-            android:value="47771-B5C85" />
+            android:value="840D2-B0CC6" />
         <meta-data
             android:name="PW_PROJECT_ID"
-            android:value="\367348848587" />
+            android:value="A367348848587" />
 
         <activity
             android:name=".MainActivity"
@@ -48,10 +48,26 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="customanimation.com.pushwooshandroiddemo.MESSAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
         </activity>
         <activity android:name="com.pushwoosh.richpages.RichPageActivity" />
         <activity android:name="com.pushwoosh.MessageActivity" />
         <activity android:name="com.pushwoosh.PushHandlerActivity" />
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="customanimation.com.pushwooshandroiddemo" />
+            </intent-filter>
+        </receiver>
+
 
         <service
             android:name="com.pushwoosh.GCMListenerService"
@@ -60,6 +76,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
+
         <service
             android:name="com.pushwoosh.GCMInstanceIDListenerService"
             android:exported="false">
@@ -67,6 +84,7 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
+
         <service
             android:name="com.pushwoosh.GCMRegistrationService"
             android:exported="false"></service>

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pushwoosh.BasePushMessageReceiver;
@@ -16,6 +17,7 @@ import com.pushwoosh.PushManager;
 
 
 public class MainActivity extends ActionBarActivity {
+    TextView mtextView;
     BroadcastReceiver mBroadcastReceiver = new BaseRegistrationReceiver() {
         @Override
         protected void onRegisterActionReceive(Context context, Intent intent) {
@@ -33,6 +35,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mtextView = (TextView) findViewById(R.id.textview_notification);
         registerReceiver();
         PushManager pushManager = PushManager.getInstance(this);
         try {
@@ -82,6 +85,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        mtextView.setText(message);
     }
 
     @Override
@@ -116,7 +120,9 @@ public class MainActivity extends ActionBarActivity {
 
     public void registerReceiver() {
         IntentFilter intentFilter = new IntentFilter(getPackageName() + ".action.PUSH_MESSAGE_RECEIVE");
+
         registerReceiver(mReceiver, intentFilter, getPackageName() + ".permission.C2D_MESSAGE", null);
+
         registerReceiver(mBroadcastReceiver, new IntentFilter(getPackageName() + "." + PushManager.REGISTER_BROAD_CAST_ACTION));
     }
 
